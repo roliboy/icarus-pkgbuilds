@@ -1,0 +1,26 @@
+# Maintainer: Nagy Roland <roliboy@protonmail.com>
+# Contributor: dalz <dalz @t disroot d0t org>
+
+pkgname=otf-nerd-fonts-fira-code
+pkgver=2.1.0
+pkgrel=3
+pkgdesc="Monospaced font with programming ligatures. Patched with Nerd Fonts icons."
+arch=('any')
+url='https://github.com/ryanoasis/nerd-fonts'
+license=('MIT')
+depends=('fontconfig')
+conflicts=('nerd-fonts-fira-code' 'nerd-fonts-complete' 'nerd-fonts-git')
+source=("$pkgname-$pkgver::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/FiraCode.zip"
+        "$pkgname-LICENSE::https://github.com/ryanoasis/nerd-fonts/raw/v$pkgver/LICENSE")
+md5sums=(
+    '21de9aa0edaa3fd2dc1d87fb9ecec0b67c9b3b18bd1998a19904158067fea7e7'
+    'd2a29823384e9194a87936ccad495c764c2ef733b29bfa6f72a1d65803ce02e5'
+)
+
+package() {
+        install -d "$pkgdir/usr/share/fonts/OTF"
+        install -d "$pkgdir/usr/share/licenses/$pkgname"
+        find "$srcdir" -not -name "*Windows Compatible*" -a -name "*.otf" \
+            -exec install -Dm644 {} "$pkgdir/usr/share/fonts/OTF" \;
+        install -Dm644 "$srcdir/$pkgname-LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
