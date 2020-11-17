@@ -1,0 +1,25 @@
+# Maintainer: Nagy Roland <roliboy@protonmail.com>
+# Contributor: Michael Herzberg <{firstname}@{firstinitial}{lastname}.de>
+
+pkgname=neovim-fzf
+pkgver=r407.7d45724
+pkgrel=1
+pkgdesc='Neovim plugin that integrates fzf, the fuzzy file finder'
+arch=('any')
+license=('MIT')
+url='https://github.com/junegunn/fzf.vim'
+depends=('neovim' 'fzf')
+makedepends=('git')
+source=('git+https://github.com/junegunn/fzf.vim')
+sha256sums=('SKIP')
+
+pkgver() {
+  cd fzf.vim
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd fzf.vim
+  install -Dm644 plugin/fzf.vim "${pkgdir}/usr/share/nvim/runtime/plugin/fzf/fzf.vim"
+  cp -R autoload bin doc "${pkgdir}/usr/share/nvim/runtime"
+}
