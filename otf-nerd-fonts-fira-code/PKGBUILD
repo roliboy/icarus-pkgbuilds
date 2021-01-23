@@ -12,10 +12,8 @@ depends=('fontconfig')
 conflicts=('nerd-fonts-fira-code' 'nerd-fonts-complete' 'nerd-fonts-git')
 source=("$pkgname-$pkgver::https://github.com/ryanoasis/nerd-fonts/releases/download/v$pkgver/FiraCode.zip"
         "$pkgname-LICENSE::https://github.com/ryanoasis/nerd-fonts/raw/v$pkgver/LICENSE")
-md5sums=(
-    '21de9aa0edaa3fd2dc1d87fb9ecec0b67c9b3b18bd1998a19904158067fea7e7'
-    'd2a29823384e9194a87936ccad495c764c2ef733b29bfa6f72a1d65803ce02e5'
-)
+md5sums=('0b410b02ffb07a36a10459ff44f93438'
+         '1b95f7668f3a4440b0d404e8dc3ccd9c')
 
 package() {
         install -d "$pkgdir/usr/share/fonts/OTF"

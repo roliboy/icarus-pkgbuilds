@@ -13,40 +13,56 @@ repo:
 
 .PHONY: chromium-darkreader
 chromium-darkreader:
-	cd chromium-darkreader; makepkg -rsfc
+ifeq (,$(wildcard chromium-darkreader*pkg.tar.zst))
+	cd chromium-darkreader; makepkg -rsfc --noconfirm
 	@mv chromium-darkreader/chromium-darkreader*pkg.tar.zst .
+endif
 
 .PHONY: chromium-ublock-origin
 chromium-ublock-origin:
-	cd chromium-ublock-origin; makepkg -rsfc
+ifeq (,$(wildcard chromium-ublock-origin*pkg.tar.zst))
+	cd chromium-ublock-origin; makepkg -rsfc --noconfirm
 	@mv chromium-ublock-origin/chromium-ublock-origin*pkg.tar.zst .
+endif
 
 .PHONY: kwin-krohnkite
 kwin-krohnkite:
-	cd kwin-krohnkite; makepkg -rsfc
+ifeq (,$(wildcard kwin-krohnkite*pkg.tar.zst))
+	cd kwin-krohnkite; makepkg -rsfc --noconfirm
 	@mv kwin-krohnkite/kwin-krohnkite*pkg.tar.zst .
+endif
 
 .PHONY: neovim-dracula
 neovim-dracula:
-	cd neovim-dracula; makepkg -rsfc
+ifeq (,$(wildcard neovim-dracula*pkg.tar.zst))
+	cd neovim-dracula; makepkg -rsfc --noconfirm
 	@mv neovim-dracula/neovim-dracula*pkg.tar.zst .
+endif
 
 .PHONY: otf-nerd-fonts-fira-code
 otf-nerd-fonts-fira-code:
-	cd otf-nerd-fonts-fira-code; makepkg -rsfc
+ifeq (,$(wildcard otf-nerd-fonts-fira-code*pkg.tar.zst))
+	cd otf-nerd-fonts-fira-code; makepkg -rsfc --noconfirm
 	@mv otf-nerd-fonts-fira-code/otf-nerd-fonts-fira-code*pkg.tar.zst .
+endif
 
 .PHONY: tor-browser
 tor-browser:
+ifeq (,$(wildcard tor-browser*pkg.tar.zst))
 	gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
-	cd tor-browser; makepkg -rsfc
+	cd tor-browser; makepkg -rsfc --noconfirm
 	@mv tor-browser/tor-browser*pkg.tar.zst .
+endif
 
 .PHONY: clean
 clean:
-	rm chromium-darkreader*pkg.tar.zst
-	rm chromium-ublock-origin*pkg.tar.zst
-	rm kwin-krohnkite*.pkg.tar.zst
-	rm neovim-dracula*.pkg.tar.zst
-	rm otf-nerd-fonts-fira-code*.pkg.tar.zst
-	rm tor-browser*.pkg.tar.zst
+	rm -f chromium-darkreader*pkg.tar.zst
+	rm -f chromium-ublock-origin*pkg.tar.zst
+	rm -f kwin-krohnkite*.pkg.tar.zst
+	rm -f neovim-dracula*.pkg.tar.zst
+	rm -f otf-nerd-fonts-fira-code*.pkg.tar.zst
+	rm -f tor-browser*.pkg.tar.zst
+	rm -f local.db
+	rm -f local.db.tar.gz
+	rm -f local.files
+	rm -f local.files.tar.gz
