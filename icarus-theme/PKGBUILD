@@ -1,0 +1,37 @@
+# Maintainer: Nagy Roland <roliboy@protonmail.com>
+
+pkgname=icarus-theme
+pkgver=1.1
+pkgrel=1
+pkgdesc='Custom theme for icarus'
+arch=('any')
+url=""
+license=('MIT')
+depends=()
+provides=(icarus-theme)
+source=(
+    1920x1080.png
+    metadata.desktop
+    screenshot.png
+    Icarus.colors
+    Icarus.colorscheme
+    default.profile
+)
+sha256sums=(
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+)
+
+package() {
+    install -Dm644 1920x1080.png $pkgdir/usr/share/wallpapers/Icarus/contents/images/1920x1080.jpg
+    install -Dm644 metadata.desktop $pkgdir/usr/share/wallpapers/Icarus/metadata.desktop
+    install -Dm644 screenshot.png $pkgdir/usr/share/wallpapers/Icarus/contents/screenshot.png
+    install -Dm644 Icarus.colors $pkgdir/usr/share/color-schemes/Icarus.colors
+
+    install -Dm644 Icarus.colorscheme $pkgdir/usr/share/konsole/Icarus.colorscheme
+    install -Dm644 default.profile $pkgdir/usr/share/konsole/default.profile
+}
