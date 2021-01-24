@@ -3,10 +3,10 @@ all: bottom chromium-darkreader chromium-ublock-origin dust icarus-theme kwin-kr
 
 .PHONY: repo
 repo:
-	repo-add icarus.db.tar.gz bottom*.pkg.tar.gz
+	repo-add icarus.db.tar.gz bottom*.pkg.tar.zst
 	repo-add icarus.db.tar.gz chromium-darkreader*.pkg.tar.zst
 	repo-add icarus.db.tar.gz chromium-ublock-origin*.pkg.tar.zst
-	repo-add icarus.db.tar.gz dust*.pkg.tar.gz
+	repo-add icarus.db.tar.gz dust*.pkg.tar.zst
 	repo-add icarus.db.tar.gz icarus-theme*.pkg.tar.zst
 	repo-add icarus.db.tar.gz kwin-krohnkite*.pkg.tar.zst
 	repo-add icarus.db.tar.gz neovim-dracula*.pkg.tar.zst
@@ -82,6 +82,7 @@ endif
 .PHONY: tealdeer
 tealdeer:
 ifeq (,$(wildcard tealdeer*.pkg.tar.zst))
+	curl https://keybase.io/dbrgn/pgp_keys.asc | gpg --import
 	cd tealdeer; makepkg -rsfc --noconfirm
 	@mv tealdeer/tealdeer*.pkg.tar.zst .
 endif
