@@ -1,0 +1,30 @@
+# Maintainer: Hao Long <aur@esd.cc>
+
+pkgname=python-cipheydists
+_pkgname=cipheydists
+pkgver=0.3.33
+pkgrel=1
+pkgdesc="A collection of sample distributions for use in Ciphey's frequency analysis"
+arch=("any")
+url="https://github.com/Ciphey/CipheyDists"
+license=('MIT')
+depends=('python')
+makedepends=('python-setuptools')
+source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/${_pkgname}/${_pkgname}-${pkgver}.tar.gz"
+        "${url}/raw/master/LICENSE")
+sha256sums=(
+    'deaae0dd3439a7f0b5e2233f61c2c341133a932b5192f2fd40dea709e46a9c80'
+    '6b0382b16279f26ff69014300541967a356a666eb0b91b422f6862f6b7dad17e'
+)
+
+
+build() {
+  cd ${_pkgname}-${pkgver}
+  python setup.py build
+}
+
+package() {
+  cd ${_pkgname}-${pkgver}
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  install -Dm644 ${srcdir}/LICENSE -t ${pkgdir}/usr/share/licenses/${pkgname}/
+}
