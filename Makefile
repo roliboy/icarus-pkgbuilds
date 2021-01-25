@@ -1,5 +1,12 @@
+PACKAGES := bottom dust procs tealdeer zoxide
+PACKAGES += ungoogled-chromium chromium-darkreader chromium-ublock-origin
+PACKAGES += tor-browser
+PACKAGES += python-base58 python-base91 python-cipheycore python-cipheydists python-click-spinner python-loguru python-pybase62 ciphey
+PACKAGES += icarus-theme kwin-krohnkite neovim-dracula otf-nerd-fonts-fira-code
+PACKAGES += rockyou
+
 .PHONY: all
-all: bottom ciphey chromium-darkreader chromium-ublock-origin dust icarus-theme kwin-krohnkite neovim-dracula otf-nerd-fonts-fira-code procs python-base58 python-base91 python-cipheycore python-cipheydists python-click-spinner python-loguru python-pybase62 tealdeer tor-browser zoxide repo
+all: $(PACKAGES) repo
 
 .PHONY: repo
 repo:
@@ -20,8 +27,10 @@ repo:
 	repo-add icarus.db.tar.gz python-click-spinner*.pkg.tar.zst
 	repo-add icarus.db.tar.gz python-loguru*.pkg.tar.zst
 	repo-add icarus.db.tar.gz python-pybase62*.pkg.tar.zst
+	repo-add icarus.db.tar.gz rockyou*.pkg.tar.zst
 	repo-add icarus.db.tar.gz tealdeer*.pkg.tar.zst
 	repo-add icarus.db.tar.gz tor-browser*.pkg.tar.zst
+	repo-add icarus.db.tar.gz ungoogled-chromium*.pkg.tar.zst
 	repo-add icarus.db.tar.gz zoxide*.pkg.tar.zst
 
 .PHONY: bottom
@@ -143,6 +152,13 @@ ifeq (,$(wildcard python-pybase62*.pkg.tar.zst))
 	@mv python-pybase62/python-pybase62*.pkg.tar.zst .
 endif
 
+.PHONY: rockyou
+rockyou:
+ifeq (,$(wildcard rockyou*.pkg.tar.zst))
+	cd rockyou; makepkg -rsfc --noconfirm
+	@mv rockyou/rockyou*.pkg.tar.zst .
+endif
+
 .PHONY: tealdeer
 tealdeer:
 ifeq (,$(wildcard tealdeer*.pkg.tar.zst))
@@ -157,6 +173,15 @@ ifeq (,$(wildcard tor-browser*.pkg.tar.zst))
 	gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
 	cd tor-browser; makepkg -rsfc --noconfirm
 	@mv tor-browser/tor-browser*.pkg.tar.zst .
+endif
+
+.PHONY: ungoogled-chromium
+ungoogled-chromium:
+ifeq (,$(wildcard ungoogled-chromium*.pkg.tar.zst))
+	@echo ungoogled-chromium pulled from chaotic aur
+	@$(shell curl -O --output-dir ungoogled-chromium/ https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/$(shell curl -s https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/ | grep -o 'ungoogled-chromium-[^"]*' | head -n1))
+	@mv ungoogled-chromium/ungoogled-chromium*.pkg.tar.zst .
+	#cd ungoogled-chromium; makepkg -rsfc --noconfirm
 endif
 
 .PHONY: zoxide
@@ -185,8 +210,10 @@ clean:
 	rm -f python-click-spinner*.pkg.tar.zst
 	rm -f python-loguru*.pkg.tar.zst
 	rm -f python-pybase62*.pkg.tar.zst
+	rm -f rockyou*.pkg.tar.zst
 	rm -f tealdeer*.pkg.tar.zst
 	rm -f tor-browser*.pkg.tar.zst
+	rm -f ungoogled-chromium*.pkg.tar.zst
 	rm -f zoxide*.pkg.tar.zst
 	rm -f icarus.db
 	rm -f icarus.db.tar.gz
