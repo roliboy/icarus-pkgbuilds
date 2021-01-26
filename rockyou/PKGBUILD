@@ -11,7 +11,7 @@ sha256sums=('47c070a029bcdb4cbd0e02c69fed136ef46dce4048ddbadf177daa5e885b8172')
 
 package() {
     mkdir -p "$pkgdir"/usr/share/dict
-    iconv -f latin1 -t utf-8 "$srcdir"/rockyou.txt | sort -u > "$pkgdir"/usr/share/dict/rockyou.txt
+    iconv -f latin1 -t utf-8 "$srcdir"/rockyou.txt > "$pkgdir"/usr/share/dict/rockyou.txt
     chmod 644 "$pkgdir"/usr/share/dict/rockyou.txt
 }
 
