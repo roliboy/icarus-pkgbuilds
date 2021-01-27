@@ -1,6 +1,7 @@
 PACKAGES := bottom dust procs tealdeer zoxide
 PACKAGES += ungoogled-chromium chromium-darkreader chromium-ublock-origin
 PACKAGES += tor-browser
+PACKAGES += gitkraken
 PACKAGES += python-base58 python-base91 python-cipheycore python-cipheydists python-click-spinner python-loguru python-pybase62 ciphey
 PACKAGES += icarus-theme kwin-krohnkite neovim-dracula otf-nerd-fonts-fira-code
 PACKAGES += rockyou dirbuster-wordlists
@@ -16,6 +17,7 @@ repo:
 	repo-add icarus.db.tar.gz chromium-ublock-origin*.pkg.tar.zst
 	repo-add icarus.db.tar.gz dirbuster-wordlists*.pkg.tar.zst
 	repo-add icarus.db.tar.gz dust*.pkg.tar.zst
+	repo-add icarus.db.tar.gz gitkraken*.pkg.tar.zst
 	repo-add icarus.db.tar.gz icarus-theme*.pkg.tar.zst
 	repo-add icarus.db.tar.gz kwin-krohnkite*.pkg.tar.zst
 	repo-add icarus.db.tar.gz neovim-dracula*.pkg.tar.zst
@@ -76,6 +78,13 @@ dust:
 ifeq (,$(wildcard dust*.pkg.tar.zst))
 	cd dust; makepkg -rsfc --noconfirm
 	@mv dust/dust*.pkg.tar.zst .
+endif
+
+.PHONY: gitkraken
+gitkraken:
+ifeq (,$(wildcard gitkraken*.pkg.tar.zst))
+	cd gitkraken; makepkg -rsfc --noconfirm
+	@mv gitkraken/gitkraken*.pkg.tar.zst .
 endif
 
 .PHONY: icarus-theme
@@ -209,6 +218,7 @@ clean:
 	rm -f chromium-ublock-origin*.pkg.tar.zst
 	rm -f dirbuster-wordlists*.pkg.tar.zst
 	rm -f dust*.pkg.tar.zst
+	rm -f gitkraken*.pkg.tar.zst
 	rm -f icarus-theme*.pkg.tar.zst
 	rm -f kwin-krohnkite*.pkg.tar.zst
 	rm -f neovim-dracula*.pkg.tar.zst
