@@ -3,7 +3,8 @@ PACKAGES += ungoogled-chromium chromium-darkreader chromium-ublock-origin
 PACKAGES += tor-browser
 PACKAGES += gitkraken
 PACKAGES += python-base58 python-base91 python-cipheycore python-cipheydists python-click-spinner python-loguru python-pybase62 ciphey
-PACKAGES += icarus-theme kwin-krohnkite neovim-dracula otf-nerd-fonts-fira-code
+PACKAGES += icarus-theme kwin-krohnkite otf-nerd-fonts-fira-code
+PACKAGES += neovim-airline neovim-airline-themes neovim-dracula
 PACKAGES += rockyou dirbuster-wordlists
 
 .PHONY: all
@@ -20,6 +21,8 @@ repo:
 	repo-add icarus.db.tar.gz gitkraken*.pkg.tar.zst
 	repo-add icarus.db.tar.gz icarus-theme*.pkg.tar.zst
 	repo-add icarus.db.tar.gz kwin-krohnkite*.pkg.tar.zst
+	repo-add icarus.db.tar.gz neovim-airline*.pkg.tar.zst
+	repo-add icarus.db.tar.gz neovim-airline-themes*.pkg.tar.zst
 	repo-add icarus.db.tar.gz neovim-dracula*.pkg.tar.zst
 	repo-add icarus.db.tar.gz otf-nerd-fonts-fira-code*.pkg.tar.zst
 	repo-add icarus.db.tar.gz procs*.pkg.tar.zst
@@ -99,6 +102,20 @@ kwin-krohnkite:
 ifeq (,$(wildcard kwin-krohnkite*.pkg.tar.zst))
 	cd kwin-krohnkite; makepkg -rsfc --noconfirm
 	@mv kwin-krohnkite/kwin-krohnkite*.pkg.tar.zst .
+endif
+
+.PHONY: neovim-airline
+neovim-airline:
+ifeq (,$(wildcard neovim-airline*.pkg.tar.zst))
+	cd neovim-airline; makepkg -rsfc --noconfirm
+	@mv neovim-airline/neovim-airline*.pkg.tar.zst .
+endif
+
+.PHONY: neovim-airline-themes
+neovim-airline-themes:
+ifeq (,$(wildcard neovim-airline-themes*.pkg.tar.zst))
+	cd neovim-airline-themes; makepkg -rsfc --noconfirm
+	@mv neovim-airline-themes/neovim-airline-themes*.pkg.tar.zst .
 endif
 
 .PHONY: neovim-dracula
@@ -221,6 +238,8 @@ clean:
 	rm -f gitkraken*.pkg.tar.zst
 	rm -f icarus-theme*.pkg.tar.zst
 	rm -f kwin-krohnkite*.pkg.tar.zst
+	rm -f neovim-airline*.pkg.tar.zst
+	rm -f neovim-airline-themes*.pkg.tar.zst
 	rm -f neovim-dracula*.pkg.tar.zst
 	rm -f otf-nerd-fonts-fira-code*.pkg.tar.zst
 	rm -f procs*.pkg.tar.zst

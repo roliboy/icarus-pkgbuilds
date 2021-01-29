@@ -1,0 +1,25 @@
+# Maintainer: Nagy Roland <roliboy@protonmail.com>
+
+pkgname=neovim-airline
+_pkgname=vim-airline
+pkgver=0.11
+pkgrel=1
+pkgdesc='Status line, written in Vimscript'
+url='https://github.com/vim-airline/vim-airline'
+arch=('any')
+license=('MIT')
+depends=('neovim' 'neovim-airline-themes')
+groups=('neovim-plugins')
+optdepends=('powerline-fonts')
+source=("$pkgname.tar.gz::$url/archive/v${pkgver}/${_pkgname}-${pkgver}.tar.gz")
+sha256sums=('cf4d47adbf2d049cca1f102b7d10a8bd099f641aaadc112f997b39781a1e3982')
+
+package() {
+  cd ${_pkgname}-${pkgver}
+
+  _installpath="$pkgdir/usr/share/nvim/runtime"
+  install -d "${_installpath}"
+  cp -r -t "${_installpath}" autoload doc plugin t
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 README.md CHANGELOG.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}
