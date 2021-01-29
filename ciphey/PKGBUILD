@@ -2,7 +2,7 @@
 
 pkgname=ciphey
 _pkgname=Ciphey
-pkgver=5.10.0
+pkgver=5.11.0
 pkgrel=1
 pkgdesc='Automated decryption tool'
 arch=('any')
@@ -30,7 +30,7 @@ source=(
     "$pkgname.tar.gz::https://codeload.github.com/Ciphey/Ciphey/tar.gz/$pkgver"
 )
 sha256sums=(
-    '3c2cd5e7e4b697d875cc85e4125913c692a8bdf9f34e1791bbef7cd5e9ce5a42'
+    'cf4a35d25dd2c1a84532cb677ff9c4ede87b214666475376d8726d7240c55817'
 )
 
 prepare() {
