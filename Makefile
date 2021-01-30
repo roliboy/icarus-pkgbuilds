@@ -2,9 +2,10 @@ PACKAGES := bottom dust procs tealdeer zoxide
 PACKAGES += ungoogled-chromium chromium-darkreader chromium-ublock-origin
 PACKAGES += tor-browser
 PACKAGES += gitkraken
+PACKAGES += burpsuite
 PACKAGES += python-base58 python-base91 python-cipheycore python-cipheydists python-click-spinner python-loguru python-pybase62 ciphey
 PACKAGES += icarus-theme kwin-krohnkite otf-nerd-fonts-fira-code
-PACKAGES += neovim-airline neovim-airline-themes neovim-dracula
+PACKAGES += neovim-airline-themes neovim-airline neovim-dracula
 PACKAGES += rockyou dirbuster-wordlists
 
 .PHONY: all
@@ -13,6 +14,7 @@ all: $(PACKAGES) repo
 .PHONY: repo
 repo:
 	repo-add icarus.db.tar.gz bottom*.pkg.tar.zst
+	repo-add icarus.db.tar.gz burpsuite*.pkg.tar.zst
 	repo-add icarus.db.tar.gz ciphey*.pkg.tar.zst
 	repo-add icarus.db.tar.gz chromium-darkreader*.pkg.tar.zst
 	repo-add icarus.db.tar.gz chromium-ublock-origin*.pkg.tar.zst
@@ -44,6 +46,13 @@ bottom:
 ifeq (,$(wildcard bottom*.pkg.tar.zst))
 	cd bottom; makepkg -rsfc --noconfirm
 	@mv bottom/bottom*.pkg.tar.zst .
+endif
+
+.PHONY: burpsuite
+burpsuite:
+ifeq (,$(wildcard burpsuite*.pkg.tar.zst))
+	cd burpsuite; makepkg -rsfc --noconfirm
+	@mv burpsuite/burpsuite*.pkg.tar.zst .
 endif
 
 .PHONY: ciphey
@@ -106,7 +115,7 @@ endif
 
 .PHONY: neovim-airline
 neovim-airline:
-ifeq (,$(wildcard neovim-airline*.pkg.tar.zst))
+ifeq (,$(wildcard neovim-airline[-0-9]*.pkg.tar.zst))
 	cd neovim-airline; makepkg -rsfc --noconfirm
 	@mv neovim-airline/neovim-airline*.pkg.tar.zst .
 endif
@@ -230,6 +239,7 @@ endif
 .PHONY: clean
 clean:
 	rm -f bottom*.pkg.tar.zst
+	rm -f burpsuite*.pkg.tar.zst
 	rm -f ciphey*.pkg.tar.zst
 	rm -f chromium-darkreader*.pkg.tar.zst
 	rm -f chromium-ublock-origin*.pkg.tar.zst
