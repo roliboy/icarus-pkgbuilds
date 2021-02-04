@@ -30,7 +30,8 @@ build() {
   unzip "${pkgname}-${pkgver}.jar" -d unpacked
   cd unpacked
   mv ../IcarusTheme.properties burp/theme/BurpDarkLaf.properties
-  rm chromium*
+  rm chromium-win*
+  rm chromium-mac*
   zip -r "${pkgname}-${pkgver}-icarus.jar" *
   mv "${pkgname}-${pkgver}-icarus.jar" "../${pkgname}-${pkgver}.jar"
 }

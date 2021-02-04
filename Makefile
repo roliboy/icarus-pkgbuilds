@@ -3,6 +3,7 @@ PACKAGES += ungoogled-chromium chromium-darkreader chromium-ublock-origin
 PACKAGES += tor-browser
 PACKAGES += gitkraken
 PACKAGES += burpsuite
+PACKAGES += volatility3
 PACKAGES += python-base58 python-base91 python-cipheycore python-cipheydists python-click-spinner python-loguru python-pybase62 ciphey
 PACKAGES += icarus-theme kwin-krohnkite otf-nerd-fonts-fira-code
 PACKAGES += neovim-airline-themes neovim-airline neovim-dracula
@@ -13,33 +14,7 @@ all: $(PACKAGES) repo
 
 .PHONY: repo
 repo:
-	repo-add icarus.db.tar.gz bottom*.pkg.tar.zst
-	repo-add icarus.db.tar.gz burpsuite*.pkg.tar.zst
-	repo-add icarus.db.tar.gz ciphey*.pkg.tar.zst
-	repo-add icarus.db.tar.gz chromium-darkreader*.pkg.tar.zst
-	repo-add icarus.db.tar.gz chromium-ublock-origin*.pkg.tar.zst
-	repo-add icarus.db.tar.gz dirbuster-wordlists*.pkg.tar.zst
-	repo-add icarus.db.tar.gz dust*.pkg.tar.zst
-	repo-add icarus.db.tar.gz gitkraken*.pkg.tar.zst
-	repo-add icarus.db.tar.gz icarus-theme*.pkg.tar.zst
-	repo-add icarus.db.tar.gz kwin-krohnkite*.pkg.tar.zst
-	repo-add icarus.db.tar.gz neovim-airline*.pkg.tar.zst
-	repo-add icarus.db.tar.gz neovim-airline-themes*.pkg.tar.zst
-	repo-add icarus.db.tar.gz neovim-dracula*.pkg.tar.zst
-	repo-add icarus.db.tar.gz otf-nerd-fonts-fira-code*.pkg.tar.zst
-	repo-add icarus.db.tar.gz procs*.pkg.tar.zst
-	repo-add icarus.db.tar.gz python-base58*.pkg.tar.zst
-	repo-add icarus.db.tar.gz python-base91*.pkg.tar.zst
-	repo-add icarus.db.tar.gz python-cipheycore*.pkg.tar.zst
-	repo-add icarus.db.tar.gz python-cipheydists*.pkg.tar.zst
-	repo-add icarus.db.tar.gz python-click-spinner*.pkg.tar.zst
-	repo-add icarus.db.tar.gz python-loguru*.pkg.tar.zst
-	repo-add icarus.db.tar.gz python-pybase62*.pkg.tar.zst
-	repo-add icarus.db.tar.gz rockyou*.pkg.tar.zst
-	repo-add icarus.db.tar.gz tealdeer*.pkg.tar.zst
-	repo-add icarus.db.tar.gz tor-browser*.pkg.tar.zst
-	repo-add icarus.db.tar.gz ungoogled-chromium*.pkg.tar.zst
-	repo-add icarus.db.tar.gz zoxide*.pkg.tar.zst
+	repo-add icarus.db.tar.gz *.pkg.tar.zst
 
 .PHONY: bottom
 bottom:
@@ -229,6 +204,13 @@ ifeq (,$(wildcard ungoogled-chromium*.pkg.tar.zst))
 	#cd ungoogled-chromium; makepkg -rsfc --noconfirm
 endif
 
+.PHONY: volatility3
+volatility3:
+ifeq (,$(wildcard volatility3*.pkg.tar.zst))
+	cd volatility3; makepkg -rsfc --noconfirm
+	@mv volatility3/volatility3*.pkg.tar.zst .
+endif
+
 .PHONY: zoxide
 zoxide:
 ifeq (,$(wildcard zoxide*.pkg.tar.zst))
@@ -238,33 +220,7 @@ endif
 
 .PHONY: clean
 clean:
-	rm -f bottom*.pkg.tar.zst
-	rm -f burpsuite*.pkg.tar.zst
-	rm -f ciphey*.pkg.tar.zst
-	rm -f chromium-darkreader*.pkg.tar.zst
-	rm -f chromium-ublock-origin*.pkg.tar.zst
-	rm -f dirbuster-wordlists*.pkg.tar.zst
-	rm -f dust*.pkg.tar.zst
-	rm -f gitkraken*.pkg.tar.zst
-	rm -f icarus-theme*.pkg.tar.zst
-	rm -f kwin-krohnkite*.pkg.tar.zst
-	rm -f neovim-airline*.pkg.tar.zst
-	rm -f neovim-airline-themes*.pkg.tar.zst
-	rm -f neovim-dracula*.pkg.tar.zst
-	rm -f otf-nerd-fonts-fira-code*.pkg.tar.zst
-	rm -f procs*.pkg.tar.zst
-	rm -f python-base58*.pkg.tar.zst
-	rm -f python-base91*.pkg.tar.zst
-	rm -f python-cipheycore*.pkg.tar.zst
-	rm -f python-cipheydists*.pkg.tar.zst
-	rm -f python-click-spinner*.pkg.tar.zst
-	rm -f python-loguru*.pkg.tar.zst
-	rm -f python-pybase62*.pkg.tar.zst
-	rm -f rockyou*.pkg.tar.zst
-	rm -f tealdeer*.pkg.tar.zst
-	rm -f tor-browser*.pkg.tar.zst
-	rm -f ungoogled-chromium*.pkg.tar.zst
-	rm -f zoxide*.pkg.tar.zst
+	rm -f *.pkg.tar.zst
 	rm -f icarus.db
 	rm -f icarus.db.tar.gz
 	rm -f icarus.files
