@@ -1,5 +1,5 @@
 PACKAGES := bottom dust procs tealdeer zoxide
-PACKAGES += ungoogled-chromium chromium-darkreader chromium-ublock-origin
+PACKAGES += ungoogled-chromium chromium-darkreader chromium-ublock-origin chromium-plasma-integration
 PACKAGES += tor-browser
 PACKAGES += gitkraken
 PACKAGES += burpsuite
@@ -51,6 +51,13 @@ chromium-ublock-origin:
 ifeq (,$(wildcard chromium-ublock-origin*.pkg.tar.zst))
 	cd chromium-ublock-origin; makepkg -rsfc --noconfirm
 	@mv chromium-ublock-origin/chromium-ublock-origin*.pkg.tar.zst .
+endif
+
+.PHONY: chromium-plasma-integration
+chromium-plasma-integration:
+ifeq (,$(wildcard chromium-plasma-integration*.pkg.tar.zst))
+	cd chromium-plasma-integration; makepkg -rsfc --noconfirm
+	@mv chromium-plasma-integration/chromium-plasma-integration*.pkg.tar.zst .
 endif
 
 .PHONY: dirbuster-wordlists
