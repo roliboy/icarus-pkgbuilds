@@ -3,8 +3,9 @@ PACKAGES += ungoogled-chromium chromium-darkreader chromium-ublock-origin chromi
 PACKAGES += tor-browser
 PACKAGES += gitkraken
 PACKAGES += burpsuite
-PACKAGES += volatility3
-PACKAGES += python-base58 python-base91 python-cipheycore python-cipheydists python-click-spinner python-loguru python-pybase62 ciphey
+PACKAGES += osu-lazer
+#PACKAGES += volatility3
+#PACKAGES += python-base58 python-base91 python-cipheycore python-cipheydists python-click-spinner python-loguru python-pybase62 ciphey
 PACKAGES += icarus-theme kwin-krohnkite otf-nerd-fonts-fira-code
 PACKAGES += neovim-airline-themes neovim-airline neovim-dracula
 PACKAGES += rockyou dirbuster-wordlists
@@ -114,6 +115,15 @@ neovim-dracula:
 ifeq (,$(wildcard neovim-dracula*.pkg.tar.zst))
 	cd neovim-dracula; makepkg -rsfc --noconfirm
 	@mv neovim-dracula/neovim-dracula*.pkg.tar.zst .
+endif
+
+.PHONY: osu-lazer
+osu-lazer:
+ifeq (,$(wildcard osu-lazer*.pkg.tar.zst))
+	@echo osu-lazer pulled from chaotic aur
+	@$(shell curl -O --output-dir osu-lazer/ https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/$(shell curl -s https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/ | grep -o 'osu-lazer-[^"]*' | head -n1))
+	@mv osu-lazer/osu-lazer*.pkg.tar.zst .
+	#cd osu-lazer; makepkg -rsfc --noconfirm
 endif
 
 .PHONY: otf-nerd-fonts-fira-code
