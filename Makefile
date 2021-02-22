@@ -2,6 +2,7 @@ PACKAGES := bottom dust procs tealdeer zoxide
 PACKAGES += ungoogled-chromium chromium-darkreader chromium-ublock-origin chromium-plasma-integration
 PACKAGES += tor-browser
 PACKAGES += gitkraken
+PACKAGES += onivim2
 PACKAGES += burpsuite
 PACKAGES += osu-lazer
 #PACKAGES += volatility3
@@ -117,11 +118,20 @@ ifeq (,$(wildcard neovim-dracula*.pkg.tar.zst))
 	@mv neovim-dracula/neovim-dracula*.pkg.tar.zst .
 endif
 
+.PHONY: onivim2
+onivim2:
+ifeq (,$(wildcard onivim2*.pkg.tar.zst))
+	@echo onivim2 pulled from chaotic aur
+	@$(shell curl -O --output-dir onivim2/ https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/$(shell curl -s https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/ | grep -o 'onivim2-[^"]*' | grep -v '</a>|\.sig' | tail -n1))
+	@mv onivim2/onivim2*.pkg.tar.zst .
+	#cd onivim; makepkg -rsfc --noconfirm
+endif
+
 .PHONY: osu-lazer
 osu-lazer:
 ifeq (,$(wildcard osu-lazer*.pkg.tar.zst))
 	@echo osu-lazer pulled from chaotic aur
-	@$(shell curl -O --output-dir osu-lazer/ https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/$(shell curl -s https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/ | grep -o 'osu-lazer-[^"]*' | head -n1))
+	@$(shell curl -O --output-dir osu-lazer/ https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/$(shell curl -s https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/ | grep -o 'osu-lazer-[^"]*' | grep -v '</a>|\.sig' | tail -n1))
 	@mv osu-lazer/osu-lazer*.pkg.tar.zst .
 	#cd osu-lazer; makepkg -rsfc --noconfirm
 endif
@@ -216,7 +226,7 @@ endif
 ungoogled-chromium:
 ifeq (,$(wildcard ungoogled-chromium*.pkg.tar.zst))
 	@echo ungoogled-chromium pulled from chaotic aur
-	@$(shell curl -O --output-dir ungoogled-chromium/ https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/$(shell curl -s https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/ | grep -o 'ungoogled-chromium-[^"]*' | head -n1))
+	@$(shell curl -O --output-dir ungoogled-chromium/ https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/$(shell curl -s https://chaotic.dr460nf1r3.me/repos/chaotic-aur/x86_64/ | grep -o 'ungoogled-chromium-[^"]*' | grep -v '</a>|\.sig' | tail -n1))
 	@mv ungoogled-chromium/ungoogled-chromium*.pkg.tar.zst .
 	#cd ungoogled-chromium; makepkg -rsfc --noconfirm
 endif
